@@ -1,9 +1,9 @@
-{% if post_list %}
+{% if thread_list %}
     <ul>
-    {% for post in post_list %}
-        <li><a href="/{{ post.id }}/">{{ post.post_text }}</a></li>
+    {% for thread in thread_list %}
+        <li><a href="/{{ thread.id }}/">{{ thread.thread_title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No posts are available.</p>
+    <p>No threads available.</p>
 {% endif %}

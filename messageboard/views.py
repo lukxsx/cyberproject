@@ -1,15 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Thread
 
 # Create your views here.
 def index(request):
-    post_list = Post.objects.order_by('-post_date')[:5]
+    thread_list = Thread.objects.order_by('-thread_date')[:5]
     context = {
-        'post_list': post_list,
+        'thread_list': thread_list,
     }
     return render(request, 'index.html', context)
 
-def postview(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'post.html', {'post_text': post})
+def threadview(request, thread_id):
+    post_list = Post.objects.filter(thread=thread_id).order_by('post_date')
+    return render(request, 'thread.html', {'post_list': post_list})
