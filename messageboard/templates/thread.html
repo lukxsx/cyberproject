@@ -1,9 +1,8 @@
 {% if post_list %}
-    <ul>
     {% for post in post_list %}
-        <li>{{ post.post_text }}</li>
+        {{ post.post_text }}
+        {{ post.post_date }}<br>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No posts.</p>
 {% endif %}

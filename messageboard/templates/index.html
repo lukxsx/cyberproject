@@ -1,9 +1,12 @@
 {% if thread_list %}
-    <ul>
     {% for thread in thread_list %}
-        <li><a href="/{{ thread.id }}/">{{ thread.thread_title }}</a></li>
+        <a href="/{{ thread.id }}/">{{ thread.thread_title }}</a>{{ thread.thread_date }}
+        <br>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No threads available.</p>
 {% endif %}
+
+<form method="get" action="{% url 'addthread' %}" >
+	<input type="text" name="title">
+	<input type="submit" value="Submit">
