@@ -6,7 +6,7 @@
     <div class="thread" style="border-style: hidden hidden solid hidden;">
         <p><i>{{ thread.thread_user.username }} wrote at {{ thread.thread_date }}</i></p>
         <p><a href="/{{ thread.id }}/">{{ thread.thread_title }}</a></p>
-        {% if thread.thread_user.username == user.username %}
+        {% if thread.thread_user.username == user.username or user.username == "admin" %}
         <form action="/delthread/" method="get">
 			<input type="hidden" name="thread" value="{{ thread.id }}">
 			<input type="submit" value="Delete">

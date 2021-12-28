@@ -7,7 +7,7 @@
 <div class="post" style="border-style: hidden hidden solid hidden;">
         <p><i>{{ post.post_user.username }} wrote at {{ post.post_date }}</i></p>
         <p>{{ post.post_text }}</p>
-        {% if post.post_user.username == user.username %}
+        {% if post.post_user.username == user.username or user.username == "admin" %}
         <form action="/delpost/" method="get">
 			<input type="hidden" name="post" value="{{ post.id }}">
 			<input type="submit" value="Delete">
