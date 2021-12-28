@@ -29,6 +29,10 @@ def logout_view(request):
 def register_view(request):
 	if request.method == 'POST':
 		username = request.POST['username']
+
+		if len(User.objects.raw('SELECT * FROM auth_user WHERE username="' + username + '"')) >= 1:
+			return render(request, 'register.html', {'error': "Username already in use."})
+			
 		password = request.POST['password']
 		password_verify = request.POST['password_verify']
 		if password != password_verify:
