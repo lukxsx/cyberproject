@@ -56,8 +56,12 @@ def threadview(request, thread_id):
 def addthread(request):
 	if request.method == 'GET':
 		title = request.GET.get('title')
-		nt = Thread(thread_title=title, thread_date=timezone.now(), thread_user=request.user)
+		message = request.GET.get('message')
+		timenow = timezone.now()
+		nt = Thread(thread_title=title, thread_date=timenow, thread_user=request.user)
 		nt.save()
+		ps = Post(post_text=message, post_date=timenow, thread=nt, post_user=request.user)
+		ps.save()
 	
 	thread_list = Thread.objects.order_by('-thread_date')[:5]
 	context = {
