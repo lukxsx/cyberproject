@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Post, Thread
 from django.utils import timezone
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):

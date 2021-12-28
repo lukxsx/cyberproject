@@ -11,8 +11,10 @@
 {% endif %}
 
 <h2>New thread</h2>
-<h4>Title</h4>
 <form method="get" action="{% url 'addthread' %}" >
+	<label for="title">Title</label>
+	<br>
 	<input type="text" name="title">
+	<br>
 	<input type="submit" value="Submit">
 {% endblock %}
