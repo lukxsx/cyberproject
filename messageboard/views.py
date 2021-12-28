@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import Post, Thread
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -23,6 +24,20 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+def register_view(request):
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		password_verify = request.POST['password_verify']
+		if password != password_verify:
+			return render(request, 'register.html', {'error': "Passwords don't match."})
+		user = User.objects.create_user(username, None, password)
+		login(request, user)
+		return HttpResponseRedirect(reverse('index'))
+	else:
+		return render(request, 'register.html')
 
 @login_required(login_url='login/')
 def index(request):
