@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Threads</h2>
 {% if thread_list %}
     {% for thread in thread_list %}
         <a href="/{{ thread.id }}/">{{ thread.thread_title }}</a>{{ thread.thread_date }}
@@ -7,6 +10,9 @@
     <p>No threads available.</p>
 {% endif %}
 
+<h2>New thread</h2>
+<h4>Title</h4>
 <form method="get" action="{% url 'addthread' %}" >
 	<input type="text" name="title">
 	<input type="submit" value="Submit">
+{% endblock %}
