@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Post, Thread
@@ -90,3 +90,12 @@ def addpost(request, thread_id):
 	
 	return HttpResponseRedirect(reverse('threadview', args=(t.id,)))
 
+
+def deletepost(request):
+	if request.method == 'GET':
+		postid = request.GET.get('post')
+		Post.objects.filter(pk=postid).delete()
+		return redirect('/')
+	else:
+		return redirect('/')
+		

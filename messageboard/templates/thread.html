@@ -1,18 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% if thread %}
 <h2>{{ thread.thread_title }}</h2>
 {% for post in thread.post_set.all %}
 <div class="post" style="border-style: hidden hidden solid hidden;">
         <p><i>{{ post.post_user.username }} wrote at {{ post.post_date }}</i></p>
         <p>{{ post.post_text }}</p>
+        {% if post.post_user.username == user.username %}
+        <form action="/delpost/" method="get">
+			<input type="hidden" name="post" value="{{ post.id }}">
+			<input type="submit" value="Delete">
+		</form>
+        {% endif %}
         <br>
     </div>
 {% endfor %}
-{% else %}
-    <p>No posts.</p>
-{% endif %}
 
 <h3>Add post</h3>
 <form action="{% url 'addpost' thread.id %}" method="post">
