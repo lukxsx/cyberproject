@@ -4,13 +4,17 @@
 {% if thread %}
 <h2>{{ thread.thread_title }}</h2>
 {% for post in thread.post_set.all %}
-    <li>{{ post.post_text }}</li>
+<div class="post" style="border-style: hidden hidden solid hidden;">
+        <p><i>{{ post.post_user.username }} wrote at {{ post.post_date }}</i></p>
+        <p>{{ post.post_text }}</p>
+        <br>
+    </div>
 {% endfor %}
 {% else %}
     <p>No posts.</p>
 {% endif %}
 
-<h2>Add post</h2>
+<h3>Add post</h3>
 <form action="{% url 'addpost' thread.id %}" method="post">
 	{% csrf_token %}
 	<label for="message">Message</label>

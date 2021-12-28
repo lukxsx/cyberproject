@@ -5,6 +5,12 @@
 </head>
 
 <body>
+	<h1>MessageBoard</h1>
+	{% if user.is_authenticated %}
+	<p>Logged in as {{ user.username }}<br><a href="{% url 'logout_view' %}">Logout</a></p>
+	{% else %}
+	<p><a href="{% url 'login_view' %}">Login</a> or <a href="{% url 'register_view' %}">register</a></p>
+	{% endif %}
 {% block content %}
 {% endblock %}
 </body>

@@ -3,14 +3,17 @@
 <h2>Threads</h2>
 {% if thread_list %}
     {% for thread in thread_list %}
-        <a href="/{{ thread.id }}/">{{ thread.thread_title }}</a>{{ thread.thread_date }}
+    <div class="thread" style="border-style: hidden hidden solid hidden;">
+        <p><i>{{ thread.thread_user.username }} wrote at {{ thread.thread_date }}</i></p>
+        <p><a href="/{{ thread.id }}/">{{ thread.thread_title }}</a></p>
         <br>
+    </div>
     {% endfor %}
 {% else %}
     <p>No threads available.</p>
 {% endif %}
 
-<h2>New thread</h2>
+<h3>New thread</h3>
 <form method="get" action="{% url 'addthread' %}" >
 	<label for="title">Title</label>
 	<br>

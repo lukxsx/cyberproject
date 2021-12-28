@@ -34,6 +34,7 @@ def register_view(request):
 		if password != password_verify:
 			return render(request, 'register.html', {'error': "Passwords don't match."})
 		user = User.objects.create_user(username, None, password)
+		user.save()
 		login(request, user)
 		return HttpResponseRedirect(reverse('index'))
 	else:
@@ -50,7 +51,7 @@ def index(request):
 @login_required(login_url='login/')
 def threadview(request, thread_id):
     t = get_object_or_404(Thread, pk=thread_id)
-    return render(request, 'thread.html', {'thread': t})
+    return render(request, 'thread.html', {'thread': t},)
     
 @login_required(login_url='login/')
 def addthread(request):
