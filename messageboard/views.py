@@ -6,8 +6,10 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
+@csrf_exempt
 def login_view(request):
 	if request.method == 'POST':
 		username = request.POST['username']
@@ -20,12 +22,13 @@ def login_view(request):
 			return render(request, 'login.html', {'error': "Wrond username or password"})
 	else:
 		return render(request, 'login.html', {'error': "You need to login first."})
-		
+
+@csrf_exempt
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-
+@csrf_exempt
 def register_view(request):
 	if request.method == 'POST':
 		username = request.POST['username']
@@ -44,6 +47,7 @@ def register_view(request):
 	else:
 		return render(request, 'register.html')
 
+@csrf_exempt
 @login_required(login_url='login/')
 def index(request):
 	thread_list = Thread.objects.order_by('-thread_date')[:5]
@@ -52,11 +56,13 @@ def index(request):
 	}
 	return render(request, 'index.html', context)
 
+@csrf_exempt
 @login_required(login_url='login/')
 def threadview(request, thread_id):
     t = get_object_or_404(Thread, pk=thread_id)
     return render(request, 'thread.html', {'thread': t},)
     
+@csrf_exempt
 @login_required(login_url='login/')
 def addthread(request):
 	if request.method == 'GET':
@@ -74,6 +80,7 @@ def addthread(request):
 	}
 	return render(request, 'index.html', context)
 
+@csrf_exempt
 @login_required(login_url='login/')
 def addpost(request, thread_id):
 	t = get_object_or_404(Thread, pk=thread_id)

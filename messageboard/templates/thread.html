@@ -16,7 +16,6 @@
 
 <h3>Add post</h3>
 <form action="{% url 'addpost' thread.id %}" method="post">
-	{% csrf_token %}
 	<label for="message">Message</label>
 	<br>
 	<input type="text" name="message">

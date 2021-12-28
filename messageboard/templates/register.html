@@ -2,7 +2,6 @@
 {% block content %}
 <h2>Register</h2>
 <form method="POST" action="{% url 'register_view' %}">
-	{% csrf_token %}
 	<label for="username">Username</label>
 	<input type="text" name="username">
 	<br>
@@ -15,6 +14,6 @@
 	<input type="submit" value="Submit">
 </form>
 {% if error %}
-<p>{{ error }}</p>
+<p>ERROR: {{ error }}</p>
 {% endif %}
 {% endblock %}
