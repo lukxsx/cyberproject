@@ -56,7 +56,7 @@ def threadview(request, thread_id):
 def addthread(request):
 	if request.method == 'GET':
 		title = request.GET.get('title')
-		nt = Thread(thread_title=title, thread_date=timezone.now())
+		nt = Thread(thread_title=title, thread_date=timezone.now(), thread_user=request.user)
 		nt.save()
 	
 	thread_list = Thread.objects.order_by('-thread_date')[:5]
@@ -69,7 +69,7 @@ def addthread(request):
 def addpost(request, thread_id):
 	t = get_object_or_404(Thread, pk=thread_id)
 	message = request.POST['message']
-	p = Post(post_text=message, post_date=timezone.now(), thread=t)
+	p = Post(post_text=message, post_date=timezone.now(), thread=t, post_user=request.user)
 	p.save()
 	
 	return HttpResponseRedirect(reverse('threadview', args=(t.id,)))
