@@ -48,7 +48,6 @@ def register_view(request):
 		return render(request, 'register.html')
 
 @csrf_exempt
-@login_required(login_url='login/')
 def index(request):
 	thread_list = Thread.objects.order_by('-thread_date')[:5]
 	context = {
@@ -57,7 +56,6 @@ def index(request):
 	return render(request, 'index.html', context)
 
 @csrf_exempt
-@login_required(login_url='login/')
 def threadview(request, thread_id):
     t = get_object_or_404(Thread, pk=thread_id)
     return render(request, 'thread.html', {'thread': t},)
@@ -98,4 +96,14 @@ def deletepost(request):
 		return redirect('/')
 	else:
 		return redirect('/')
-		
+
+
+def deletethread(request):
+	if request.method == 'GET':
+		threadid = request.GET.get('thread')
+		t = Thread.objects.get(pk=threadid)
+		t.post_set.all().delete()
+		t.delete()
+		return redirect('/')
+	else:
+		return redirect('/')

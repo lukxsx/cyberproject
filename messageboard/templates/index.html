@@ -6,6 +6,12 @@
     <div class="thread" style="border-style: hidden hidden solid hidden;">
         <p><i>{{ thread.thread_user.username }} wrote at {{ thread.thread_date }}</i></p>
         <p><a href="/{{ thread.id }}/">{{ thread.thread_title }}</a></p>
+        {% if thread.thread_user.username == user.username %}
+        <form action="/delthread/" method="get">
+			<input type="hidden" name="thread" value="{{ thread.id }}">
+			<input type="submit" value="Delete">
+		</form>
+        {% endif %}
         <br>
     </div>
     {% endfor %}
@@ -13,6 +19,7 @@
     <p>No threads available.</p>
 {% endif %}
 
+{% if user.is_authenticated %}
 <h3>New thread</h3>
 <form method="get" action="{% url 'addthread' %}" >
 	<label for="title">Title</label>
@@ -24,4 +31,7 @@
 	<input type="text" name="message">
 	<br>
 	<input type="submit" value="Submit">
+{% else %}
+<p>Please log in or register to make a new thread</p>
+{% endif %}
 {% endblock %}

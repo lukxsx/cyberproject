@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<p><a href="/"><p>Back</a></p>
 <h2>{{ thread.thread_title }}</h2>
 {% for post in thread.post_set.all %}
 <div class="post" style="border-style: hidden hidden solid hidden;">
@@ -16,6 +17,7 @@
     </div>
 {% endfor %}
 
+{% if user.is_authenticated %}
 <h3>Add post</h3>
 <form action="{% url 'addpost' thread.id %}" method="post">
 	<label for="message">Message</label>
@@ -24,4 +26,7 @@
 	<br>
 	<input type="submit" value="Submit">
 </form>
+{% else %}
+<p>Please log in or register to reply</p>
+{% endif %}
 {% endblock %}
